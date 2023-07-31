@@ -1,0 +1,41 @@
+
+-- Table: users
+CREATE TABLE users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL,
+created_at TIMESTAMP DEFAULT
+CURRENT_TIMESTAMP
+);
+-- Table: groups
+CREATE TABLE groups (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+created_at TIMESTAMP DEFAULT
+CURRENT_TIMESTAMP
+);
+-- Table: group_members
+CREATE TABLE group_members (
+id INT AUTO_INCREMENT PRIMARY KEY,
+group_id INT NOT NULL,
+user_id INT NOT NULL,
+created_at TIMESTAMP DEFAULT
+CURRENT_TIMESTAMP,
+FOREIGN KEY (group_id) REFERENCES
+groups(id),
+FOREIGN KEY (user_id) REFERENCES
+users(id)
+);
+-- Table: messages
+CREATE TABLE messages (
+id INT AUTO_INCREMENT PRIMARY KEY,
+sender_id INT NOT NULL,
+group_id INT,
+message TEXT NOT NULL,
+created_at TIMESTAMP DEFAULT
+CURRENT_TIMESTAMP,
+FOREIGN KEY (sender_id) REFERENCES
+users(id),
+FOREIGN KEY (group_id) REFERENCES
+groups(id)
+);
